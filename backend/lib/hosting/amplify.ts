@@ -86,11 +86,11 @@ export function createAmplifyHosting(
 					},
 				},
 				artifacts: {
-					baseDirectory: '.next',
-					files: ['**/*'],
+					baseDirectory: 'frontend/.next',
+					files: ['frontend/**/*'],
 				},
 				cache: {
-					paths: ['node_modules/**/*'],
+					paths: ['frontend/node_modules/**/*'],
 				},
 			},
 		}),

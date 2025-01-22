@@ -9,10 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-amplify/adapter-nextjs": "^1.4.1",
+    "@aws-amplify/core": "^6.9.1",
+    "@radix-ui/react-toast": "^1.2.4",
+    "aws-amplify": "^6.12.1",
+    "class-variance-authority": "^0.7.1",
     "git-branch": "^2.0.1",
+    "lucide-react": "^0.473.0",
     "next": "14.2.17",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
     "@types/git-branch": "^2.0.5",

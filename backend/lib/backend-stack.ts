@@ -44,6 +44,8 @@ export class BackendStack extends cdk.Stack {
 				identityPoolId: auth.identityPool.identityPoolId,
 				region: this.region,
 				apiUrl: "",
+                NEXT_PUBLIC_USER_POOL_ID: "",
+                NEXT_PUBLIC_USER_POOL_CLIENT_ID: "",
 			},
 		}) 
 
