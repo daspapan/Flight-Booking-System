@@ -2,7 +2,7 @@
 
 import { Amplify } from "aws-amplify";
 import { ResourcesConfig } from "@aws-amplify/core";
-import cdkOutput from '../cdk-outputs.json';
+import cdkOutput from './cdk-outputs.json';
 
 const output = cdkOutput[`FBS-Dev-Stack`]
 

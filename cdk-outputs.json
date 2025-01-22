@@ -1,0 +1,10 @@
+{
+  "FBS-Dev-Stack": {
+    "UserPoolClientId": "111n9a2q0vnbjtegj0ag72v2u1",
+    "UserPoolId": "ap-south-1_tKLSBNzeK",
+    "FlightsTable": "FBS-Dev-Stack-FBSDevFlightsTable8B47A605-NJOCLBBNG67E",
+    "AmplifyAppId": "d3mfs1k5x1uwxk",
+    "UsersTable": "FBS-Dev-Stack-FBSDevUsersTableE907BFAA-1COTRTSOT9WM2",
+    "SeatsTable": "FBS-Dev-Stack-FBSDevSeatsTable53FB2FAE-21T6H76O7205"
+  }
+}
