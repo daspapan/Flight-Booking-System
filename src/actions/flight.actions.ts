@@ -7,7 +7,7 @@ import {
     QueryCommand,
 } from "@aws-sdk/client-dynamodb";
 import { unmarshall } from "@aws-sdk/util-dynamodb";
-import { config } from "../../awsconfig.ts";
+// import { config } from "../../awsconfig.ts";
   
 const client = new DynamoDBClient({
     region: process.env.NEXT_PUBLIC_AWS_REGION as string,
@@ -17,7 +17,7 @@ const client = new DynamoDBClient({
     },
 });
   
-const TableName = config.Database.DynamoDB.FlightsTable;
+const TableName = "FBS-Dev-Stack-FBSDevFlightsTable8B47A605-NJOCLBBNG67E"; // config.Database.DynamoDB.FlightsTable;
 export interface FlightType {
     Origin: string;
     Destination: string;
@@ -54,7 +54,7 @@ export interface SeatDataType {
     IsBooked: string;
     FlightID: string;
 }
-const SeatBookingTableName = config.Database.DynamoDB.SeatsTable;
+const SeatBookingTableName = "FBS-Dev-Stack-FBSDevSeatsTable53FB2FAE-21T6H76O7205"; // config.Database.DynamoDB.SeatsTable;
   
 export const fetchSeats = async (flightId: string): Promise<SeatDataType[]> => {
     const command = new QueryCommand({
