@@ -9,9 +9,12 @@
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk",
+    "seed:flight": "ts-node ./scripts/upload-flight-data.ts",
+    "seed:seat": "ts-node ./scripts/upload-seat-data.ts",
     "authtest": "jest --verbose ./__tests__/authflow.test.ts",
     "bootstrap": "cdk bootstrap --profile fsps-cdk-admin ",
     "synth": "cdk synth",
+    "seed:local":"npm run seed:flight && npm run seed:seat",
     "deploy:local": "cdk synth && cdk deploy --require-approval never --all --profile fsps-cdk-admin --outputs-file ../cdk-outputs.json",
     "destroy": "cdk destroy --require-approval never --all --profile fsps-cdk-admin"
   },
