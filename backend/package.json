@@ -33,8 +33,8 @@
     "typescript": "~5.6.2"
   },
   "dependencies": {
-    "@aws-cdk/aws-amplify-alpha": "^2.176.0-alpha.0",
-    "@aws-cdk/aws-cognito-identitypool-alpha": "^2.176.0-alpha.0",
+    "@aws-cdk/aws-amplify-alpha": "^2.116.1-alpha.0",
+    "@aws-cdk/aws-cognito-identitypool-alpha": "^2.116.1-alpha.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.731.1",
     "@aws-sdk/client-dynamodb": "^3.731.1",
     "@aws-sdk/util-dynamodb": "^3.731.1",
