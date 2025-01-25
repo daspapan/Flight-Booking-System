@@ -13,13 +13,13 @@ const output = cdkOutput[`FBS-Dev-Stack`]
   
 const client = new DynamoDBClient({
     region: process.env.NEXT_PUBLIC_AWS_REGION as string,
-    credentials: {
+    /* credentials: {
       accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID as string,
       secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY as string,
-    },
+    }, */
 });
   
-const TableName = output.FlightsTable;
+const TableName = process.env.NEXT_PUBLIC_FLIGHTS_TABLE || output.FlightsTable;
 export interface FlightType {
     Origin: string;
     Destination: string;
@@ -56,7 +56,7 @@ export interface SeatDataType {
     IsBooked: string;
     FlightID: string;
 }
-const SeatBookingTableName = output.SeatsTable;
+const SeatBookingTableName = process.env.NEXT_PUBLIC_SEATS_TABLE || output.SeatsTable;
   
 export const fetchSeats = async (flightId: string): Promise<SeatDataType[]> => {
     const command = new QueryCommand({
