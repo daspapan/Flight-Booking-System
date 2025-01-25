@@ -133,9 +133,9 @@ export class BackendStack extends cdk.Stack {
         new cdk.CfnOutput(this, 'SeatsTable', {value: DynamoDBTables.seatsTable.tableName})
         new cdk.CfnOutput(this, 'PostsTable', {value: DynamoDBTables.postsTable.tableName}), 
         // Cognito
-        new cdk.CfnOutput(this, 'UserPoolId', {value: auth.userPool.userPoolId})
-        new cdk.CfnOutput(this, 'UserPoolClientId', {value: auth.userPoolClient.userPoolClientId})
-        new cdk.CfnOutput(this, 'IdentityPoolId', {value: auth.identityPool.identityPoolId})
+        new cdk.CfnOutput(this, 'userPoolId', {value: auth.userPool.userPoolId})
+        new cdk.CfnOutput(this, 'userPoolClientId', {value: auth.userPoolClient.userPoolClientId})
+        new cdk.CfnOutput(this, 'identityPoolId', {value: auth.identityPool.identityPoolId})
         // S3 Bucket
         new cdk.CfnOutput(this, 'BucketName', {value: bucket.bucketName})
         // API Endpoint

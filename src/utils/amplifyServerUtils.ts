@@ -7,8 +7,9 @@ const output = cdkOutput[`FBS-Dev-Stack`]
 const config: ResourcesConfig = {
     Auth: {
         Cognito: {
-            userPoolId: process.env.NEXT_PUBLIC_USER_POOL_ID || output.UserPoolId,
-            userPoolClientId: process.env.NEXT_PUBLIC_USER_POOL_CLIENT_ID || output.UserPoolClientId,
+            userPoolId: process.env.NEXT_PUBLIC_USER_POOL_ID || output.userPoolId,
+            userPoolClientId: process.env.NEXT_PUBLIC_USER_POOL_CLIENT_ID || output.userPoolClientId,
+            identityPoolId: process.env.NEXT_PUBLIC_IDENTITY_POOL_ID || output.identityPoolId,
             signUpVerificationMethod: "code"
         },
     },
