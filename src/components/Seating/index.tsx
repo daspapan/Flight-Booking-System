@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { fetchAuthSession } from "aws-amplify/auth";
 
 import styled from "styled-components";
-import { SeatType, processSeatsData, seatdata as seats } from "@/components/Seating/seatdata";
+import { SeatType, processSeatsData } from "@/components/Seating/seatdata";
 import Seat from "@/components/Seating/Seat";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
@@ -147,6 +147,7 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
             setTimeout(() => {
                 window.location.reload();
             }, 1000);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             console.error(error);
             toast({
@@ -163,6 +164,7 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         try {
             await handleSignOut();
             router.push("/");
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             console.log(error);
             return toast({
