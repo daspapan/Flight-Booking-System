@@ -10,14 +10,14 @@ export default async function Home() {
         DepartureTime: flight.DepartureTime.toString(),
         ArrivalTime: flight.ArrivalTime.toString(),
     }));
-    console.log("formattedData", formattedData);
+    // console.log("formattedData", formattedData);
 
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
-            <h1 className="text-4xl font-bold">Welcome to the home page</h1>
-            <p className="text-2xl">This is the home page</p>
-            <SeatSelection flights={formattedData} />
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-xl lg:mt-20">
+                <SeatSelection flights={formattedData} />
+            </div>
         </div>
     )
 }

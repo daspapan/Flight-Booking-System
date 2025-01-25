@@ -51,6 +51,13 @@ export function createTables(scope: Construct, props: TablesProps){
         }
     })
 
-    return {usersTable, flightsTable, seatsTable}
+
+    const postsTable = new Table(scope, `${props.appName}-PostsTable`, {
+        partitionKey: { name: 'pk', type: AttributeType.STRING },
+        billingMode: BillingMode.PAY_PER_REQUEST,
+        removalPolicy: cdk.RemovalPolicy.DESTROY,
+    })
+
+    return {usersTable, flightsTable, seatsTable, postsTable}
 
 }

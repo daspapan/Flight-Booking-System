@@ -12,7 +12,7 @@ const cognitoClient = new cognito.CognitoIdentityProviderClient({
 
 const change = new Chance();
 
-let firstName: string | undefined;
+// let firstName: string | undefined;
 
 const loadEnvironmentVariables = () => {
     

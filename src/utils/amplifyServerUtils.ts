@@ -1,5 +1,5 @@
 import { createServerRunner } from "@aws-amplify/adapter-nextjs";
-import { ResourcesConfig,AuthConfig } from '@aws-amplify/core';
+import { ResourcesConfig } from '@aws-amplify/core';
 import cdkOutput from '../../cdk-outputs.json';
 
 const output = cdkOutput[`FBS-Dev-Stack`]

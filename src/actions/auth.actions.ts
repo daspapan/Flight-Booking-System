@@ -21,17 +21,19 @@ export async function handleSignUp({
     email,
     password,
     name,
-}: SignUpParameters) {
+}: SignUpParameters): Promise<string | undefined> {
+    console.log("signing up", email, password, name);
     try {
         const { userId } = await signUp({
             username: email,
             password,
             options: {
                 userAttributes: {
-                name,
+                    name,
                 },
             },
         });
+        console.log("userId", userId);
         return userId;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {

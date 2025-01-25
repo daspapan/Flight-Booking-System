@@ -3,22 +3,10 @@ import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import * as gitBranch from 'git-branch';
 import { BackendStack } from '../lib/backend-stack';
+import { CDKContext } from '../types';
 // import { CDKContext } from '../cdk';
 
-export type CDKContext = {
-  appName: string
-  stage: string
-  branch: string
-  env: {
-      account: string
-      region: string
-  }
-  hosting: {
-      ghTokenName: string
-      ghOwner: string
-      repo: string
-  }
-}
+
 
 const app = new cdk.App();
 
