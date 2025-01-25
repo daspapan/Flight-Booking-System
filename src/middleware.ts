@@ -20,6 +20,7 @@ export async function middleware(request: NextRequest) {
         operation: async (contextSpec) => {
             try {
                 const session = await fetchAuthSession(contextSpec);
+                // console.log("session", session.tokens);
                 return session.tokens !== undefined;
             } catch (error) {
                 console.log(error);
@@ -34,7 +35,7 @@ export async function middleware(request: NextRequest) {
         return response;
     }
 
-    return NextResponse.redirect(new URL("/signup", request.url));
+    return NextResponse.redirect(new URL("/auth/signup", request.url));
 }
 
 export const config = {

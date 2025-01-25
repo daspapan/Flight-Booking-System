@@ -1,18 +1,17 @@
 "use client";
 
+import "./Seat.css";
 import React, { useState } from "react";
 import { fetchAuthSession } from "aws-amplify/auth";
-
+import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import { SeatType, processSeatsData } from "@/components/Seating/seatdata";
 import Seat from "@/components/Seating/Seat";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 
-import "./Seat.css";
-import { handleSignOut } from "@/actions/auth.actions";
-import { useRouter } from "next/navigation";
 import { FlightSelector } from "@/components/Seating/flightSelector";
+import { handleSignOut } from "@/actions/auth.actions";
 import { fetchSeats } from "@/actions/flight.actions";
 import { APIURL } from "@/actions/booking.actions";
 type ProcessedSeats = {
@@ -94,34 +93,36 @@ interface SeatSelectionProps {
 
 // React Component
 const SeatSelection = (props: SeatSelectionProps) => {
-  // You can manage state and logic here
 
-const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
-const [flightId, setFlightId] = React.useState("");
-const [seats, setSeats] = useState<ProcessedSeats>({});
-const [isSubmiting, setIsSubmiting] = React.useState<boolean>(false);
+    // You can manage state and logic here
 
-const { toast } = useToast();
-const router = useRouter();
+    const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
+    const [flightId, setFlightId] = React.useState("FL456");
+    const [seats, setSeats] = useState<ProcessedSeats>({});
+    const [isSubmiting, setIsSubmiting] = React.useState<boolean>(false);
 
-const handleSeatClick = (seatNumber: string) => {
-    if (selectedSeats.includes(seatNumber)) {
-        setSelectedSeats(selectedSeats.filter((seat) => seat !== seatNumber));
-    } else {
-        setSelectedSeats([...selectedSeats, seatNumber]);
-    }
+    const { toast } = useToast();
+    const router = useRouter();
 
-    if (selectedSeats.length >= 2) {
-        toast({
-            title: "You can only select a maximum of 2 seats and Your flight",
-            description: "Please deselect seats to continue.",
-        });
-    }
-    console.log("Length of Seat Selection: ", selectedSeats.length);
-};
+    const handleSeatClick = (seatNumber: string) => {
+        if (selectedSeats.includes(seatNumber)) {
+            setSelectedSeats(selectedSeats.filter((seat) => seat !== seatNumber));
+        } else {
+            setSelectedSeats([...selectedSeats, seatNumber]);
+        }
 
-const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        if (selectedSeats.length >= 2) {
+            toast({
+                title: "You can only select a maximum of 2 seats and Your flight",
+                description: "Please deselect seats to continue.",
+            });
+        }
+        console.log("Length of Seat Selection: ", selectedSeats.length);
+    };
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        
         const authToken = (await fetchAuthSession()).tokens?.idToken?.toString();
         const username = (await fetchAuthSession()).userSub?.toString();
         try {
@@ -176,8 +177,11 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 
     React.useEffect(() => {
         const loadData = async () => {
+            console.log("Load seat data by flight id.")
+            console.log("Flight ID: ", flightId);
             if (flightId) {
                 const fetchedSeats = await fetchSeats(flightId);
+                // console.log("Fetched Seats: ", fetchedSeats);
                 const processedSeats = processSeatsData(fetchedSeats);
                 setSeats(processedSeats);
             }
@@ -204,44 +208,50 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         <div>
             <div className="flex justify-between">
                 <FlightSelector
-                flights={props.flights}
-                getFlightId={(flightId: string) => {
-                    setFlightId(flightId);
-                }}
+                    flights={props.flights}
+                    getFlightId={(flightId: string) => {
+                        // console.log("Look for Flight ID: ", flightId);
+                        setFlightId(flightId);
+                    }}
                 />
                 <span>
-                <Button onClick={signout}>SignOut</Button>
+                    <Button onClick={signout}>Sign Out</Button>
                 </span>
             </div>
 
             <Plane>
                 <Cockpit>
-                <h1 className="text-2xl">Serverless Airline</h1>
+                    <h1 className="text-2xl">Serverless Airline</h1>
                 </Cockpit>
+                
                 <Exit className="exit--front" />
 
                 <Cabin>
-                <Fuselage>
-                    <form onSubmit={handleSubmit}>
-                    {rows}
+                    <Fuselage>
+                        <form onSubmit={handleSubmit}>
 
-                    <div className="flex justify-center mt-5">
-                        <Button
-                        className=""
-                        type="submit"
-                        disabled={
-                            selectedSeats.length > 2 ||
-                            selectedSeats.length < 1 ||
-                            !flightId
-                        }
-                        >
-                        {isSubmiting ? "Submitting..." : "Submit"}
-                        </Button>
-                    </div>
-                    </form>
-                </Fuselage>
+                            {rows}
+
+                            <div className="flex justify-center mt-5">
+                                <Button
+                                    className=""
+                                    type="submit"
+                                    disabled={
+                                        selectedSeats.length > 2 ||
+                                        selectedSeats.length < 1 ||
+                                        !flightId
+                                    }
+                                >
+                                    {isSubmiting ? "Submitting..." : "Submit"}
+                                </Button>
+                            </div>
+
+                        </form>
+                    </Fuselage>
                 </Cabin>
+
                 <Exit className="exit--back" />
+
             </Plane>
         </div>
     );

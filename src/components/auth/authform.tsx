@@ -186,7 +186,9 @@ export const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
                             : isLoading ? "Logging In..." : "Login"}
                     </Button>
 
-                    <Code />
+                    { type === "signup" && <Code />}
+
+                    <br/><br/>
 
                 </form>
             </Form>

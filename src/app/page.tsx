@@ -5,6 +5,8 @@ export default async function Home() {
 
     const data = await fetchFlights();
 
+    // console.log(data)
+
     const formattedData = data.map((flight) => ({
         ...flight,
         DepartureTime: flight.DepartureTime.toString(),

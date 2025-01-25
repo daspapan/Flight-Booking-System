@@ -31,7 +31,7 @@ export function Code() {
                 confirmationCode: code,
             });
             if (result === true) {
-                router.push("/login");
+                router.push("/auth/login");
             }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {

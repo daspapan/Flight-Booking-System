@@ -13,10 +13,10 @@ const output = cdkOutput[`FBS-Dev-Stack`]
   
 const client = new DynamoDBClient({
     region: process.env.NEXT_PUBLIC_AWS_REGION as string,
-    /* credentials: {
+    credentials: {
       accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID as string,
       secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY as string,
-    }, */
+    },
 });
   
 const TableName = process.env.NEXT_PUBLIC_FLIGHTS_TABLE || output.FlightsTable;
@@ -36,16 +36,16 @@ export const fetchFlights = async (
     });
     try {
         const response = await client.send(command);
-
+        
         // Unmarshalling DynamoDB items into JS objects and casting to TS types
         return (response.Items || []).map((i) => unmarshall(i)) as FlightType[];
     } catch (error) {
         console.error(
-        `Failed to fetch data from DynamoDB. Error: ${JSON.stringify(
-            error,
-            null,
-            2
-        )}`
+            `Failed to fetch data from DynamoDB. Error: ${JSON.stringify(
+                error,
+                null,
+                2
+            )}`
         );
 
         throw error;
@@ -59,6 +59,8 @@ export interface SeatDataType {
 const SeatBookingTableName = process.env.NEXT_PUBLIC_SEATS_TABLE || output.SeatsTable;
   
 export const fetchSeats = async (flightId: string): Promise<SeatDataType[]> => {
+    console.log("fetchSeats", flightId);
+    console.log("SeatBookingTableName", SeatBookingTableName);
     const command = new QueryCommand({
         TableName: SeatBookingTableName,
         KeyConditionExpression: "#DDB_FlightID = :pkey",

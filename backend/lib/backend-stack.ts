@@ -58,8 +58,8 @@ export class BackendStack extends cdk.Stack {
         const auth = createAuth(this, {
             appName: appName, 
             usersTable: DynamoDBTables.usersTable,
-            // hasCognitoGroups: true,
-            // groupNames: ['Admin', 'Management'],
+            hasCognitoGroups: true,
+            groupNames: ['Admin', 'Management'],
             addUserPostConfirmation: computeStack.addUserToTableFunc
         });
 

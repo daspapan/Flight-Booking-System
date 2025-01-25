@@ -49,6 +49,16 @@ export function createAuth(scope: Construct, props: CreateAuthProps){
         removalPolicy: cdk.RemovalPolicy.DESTROY
     })
 
+    if(props.hasCognitoGroups){
+        props.groupNames?.forEach(
+            (groupName) => new Cognito.CfnUserPoolGroup(scope, `${props.appName}-${groupName}Group`, {
+                userPoolId: userPool.userPoolId,
+                groupName: groupName,
+                description: `This is ${groupName} group.`
+            })
+        )
+    }
+
     const userPoolClient = new Cognito.UserPoolClient(scope, `${props.appName}-UserPoolClient`, {
         userPoolClientName: `${props.appName}-UserPoolClient`,
         userPool: userPool,
