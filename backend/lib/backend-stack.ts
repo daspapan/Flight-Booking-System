@@ -96,15 +96,30 @@ export class BackendStack extends cdk.Stack {
 			ghTokenName: context.hosting.ghTokenName,
 			repo: context.hosting.repo,
 			environmentVariables: {
-				userPoolId: auth.userPool.userPoolId,
-				userPoolClientId: auth.userPoolClient.userPoolClientId,
-				identityPoolId: auth.identityPool.identityPoolId,
 				region: this.region,
-				apiUrl: "",
-                NEXT_PUBLIC_USER_POOL_ID: "",
-                NEXT_PUBLIC_USER_POOL_CLIENT_ID: "",
+                userPoolId: auth.userPool.userPoolId,
+                userPoolClientId: auth.userPoolClient.userPoolClientId,
+                identityPoolId: auth.identityPool.identityPoolId,
+                apiKeyId: api.apiKey.keyId,
+                apiUrl: api.api.url,
+                bucketName: bucket.bucketName,
+                flightsTable: DynamoDBTables.flightsTable.tableName,
+                seatsTable: DynamoDBTables.seatsTable.tableName,
+                usersTable: DynamoDBTables.usersTable.tableName,
+                postsTable: DynamoDBTables.postsTable.tableName,
+                NEXT_PUBLIC_REGION: this.region,
+                NEXT_PUBLIC_USER_POOL_ID: auth.userPool.userPoolId,
+                NEXT_PUBLIC_USER_POOL_CLIENT_ID: auth.userPoolClient.userPoolClientId,
+                NEXT_PUBLIC_IDENTITY_POOL_ID: auth.identityPool.identityPoolId,
+                NEXT_PUBLIC_API_KEY_ID: api.apiKey.keyId,
+                NEXT_PUBLIC_API_URL: api.api.url,
+                NEXT_PUBLIC_BUCKET_NAME: bucket.bucketName,
+                NEXT_PUBLIC_FLIGHTS_TABLE: DynamoDBTables.flightsTable.tableName,
+                NEXT_PUBLIC_SEATS_TABLE: DynamoDBTables.seatsTable.tableName,
+                NEXT_PUBLIC_USERS_TABLE: DynamoDBTables.usersTable.tableName,
+                NEXT_PUBLIC_POSTS_TABLE: DynamoDBTables.postsTable.tableName,
 			},
-		}) 
+		})
 
         
 
@@ -114,6 +129,7 @@ export class BackendStack extends cdk.Stack {
         new cdk.CfnOutput(this, 'UsersTable', {value: DynamoDBTables.usersTable.tableName})
         new cdk.CfnOutput(this, 'FlightsTable', {value: DynamoDBTables.flightsTable.tableName})
         new cdk.CfnOutput(this, 'SeatsTable', {value: DynamoDBTables.seatsTable.tableName})
+        new cdk.CfnOutput(this, 'PostsTable', {value: DynamoDBTables.postsTable.tableName}), 
         // Cognito
         new cdk.CfnOutput(this, 'UserPoolId', {value: auth.userPool.userPoolId})
         new cdk.CfnOutput(this, 'UserPoolClientId', {value: auth.userPoolClient.userPoolClientId})

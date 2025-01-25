@@ -1,16 +1,16 @@
 {
   "FBS-Dev-Stack": {
-    "UserPoolClientId": "4sn43hvqjshrli84sitvdjik4u",
-    "ApiKeyId": "lux1zl2x1l",
-    "UserPoolId": "ap-south-1_cMlfqgN8B",
-    "BucketName": "fbs-dev-stack-fbsdevs3bucket208fb333-8guf3ucecus8",
-    "ApiUrl": "https://meaz39id8a.execute-api.ap-south-1.amazonaws.com/dev/",
-    "FlightsTable": "FBS-Dev-Stack-FBSDevFlightsTable8B47A605-7L4W0NM3S4RP",
-    "FBSDevFBSAPIEndpointBFE33C43": "https://meaz39id8a.execute-api.ap-south-1.amazonaws.com/dev/",
+    "UserPoolClientId": "moibiebv3a7sv6vtth6hvjh7i",
+    "ApiKeyId": "bh79tbxa86",
+    "UserPoolId": "ap-south-1_8gkQkH0Gz",
+    "BucketName": "fbs-dev-stack-fbsdevs3bucket208fb333-wzjqreiz6jbu",
+    "ApiUrl": "https://bu8popi78j.execute-api.ap-south-1.amazonaws.com/dev/",
+    "FlightsTable": "FBS-Dev-Stack-FBSDevFlightsTable8B47A605-1HKW36WAKX44G",
+    "FBSDevFBSAPIEndpointBFE33C43": "https://bu8popi78j.execute-api.ap-south-1.amazonaws.com/dev/",
     "Region": "ap-south-1",
-    "IdentityPoolId": "ap-south-1:13cf44d2-3513-4a72-abe6-bf5ddb0fe149",
-    "AmplifyAppId": "d22q8c36bjteez",
-    "UsersTable": "FBS-Dev-Stack-FBSDevUsersTableE907BFAA-8B3FAPABM2V",
-    "SeatsTable": "FBS-Dev-Stack-FBSDevSeatsTable53FB2FAE-IA71JXKOY6KJ"
+    "IdentityPoolId": "ap-south-1:b632412f-b996-490b-8c52-b2427cb5cabb",
+    "AmplifyAppId": "d3s1yxuzzzgiwt",
+    "UsersTable": "FBS-Dev-Stack-FBSDevUsersTableE907BFAA-24BQZQIGS2BO",
+    "SeatsTable": "FBS-Dev-Stack-FBSDevSeatsTable53FB2FAE-13FGZN6STD7NS"
   }
 }

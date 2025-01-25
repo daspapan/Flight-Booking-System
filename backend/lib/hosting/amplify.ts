@@ -64,7 +64,7 @@ export function createAmplifyHosting(
 		autoBranchDeletion: true,
 		environmentVariables: {
 			// AMPLIFY_MONOREPO_APP_ROOT // # https://docs.aws.amazon.com/amplify/latest/userguide/monorepo-configuration.html ## https://www.youtube.com/watch?v=XLkVZIS1nyg&t=320s
-			// _CUSTOM_IMAGE: 'amplify:al2023', // Amplify build image to support NextJS 14
+			_CUSTOM_IMAGE: 'amplify:al2023', // Amplify build image to support NextJS 14
 			...props.environmentVariables,
 		},
 		buildSpec: BuildSpec.fromObjectToYaml({
