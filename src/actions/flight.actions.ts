@@ -58,9 +58,37 @@ export interface SeatDataType {
 }
 const SeatBookingTableName = process.env.NEXT_PUBLIC_SEATS_TABLE || output.SeatsTable;
   
-export const fetchSeats = async (flightId: string): Promise<SeatDataType[]> => {
+export const fetchSeats = async (flightId: string, authToken: string | undefined): Promise<SeatDataType[]> => {
     console.log("fetchSeats", flightId);
     console.log("SeatBookingTableName", SeatBookingTableName);
+
+    try {
+        
+        const seatsData = await fetch(`${process.env.NEXT_PUBLIC_API_URL}flights/${flightId}`, {
+            method: "GET",
+            headers: {
+                Authorization: `${authToken}`,
+            },
+        })
+        const response = await seatsData.json();
+        console.log("Fetched Seats 1: ", response);
+        return response.data as SeatDataType[]
+
+    } catch (error) {
+        console.error(
+        `Failed to fetch data from DynamoDB. Error: ${JSON.stringify(
+            error,
+            null,
+            2
+        )}`
+        );
+
+        throw error;
+    }
+
+    
+
+    /* 
     const command = new QueryCommand({
         TableName: SeatBookingTableName,
         KeyConditionExpression: "#DDB_FlightID = :pkey",
@@ -87,6 +115,6 @@ export const fetchSeats = async (flightId: string): Promise<SeatDataType[]> => {
         );
 
         throw error;
-    }
+    } */
 };
   

@@ -8,6 +8,8 @@ type APIGatewayProps = {
     stageName: string;
     userPool: UserPool;
     bookingLambdaIntegration: LambdaIntegration;
+    fetchFlightsLambdaIntegration: LambdaIntegration;
+    fetchSeatsLambdaIntegration: LambdaIntegration;
     postsLambdaIntegration: LambdaIntegration;
     postLambdaIntegration: LambdaIntegration;
 }
@@ -47,19 +49,24 @@ export function createAPIGateway(scope: Construct, props: APIGatewayProps) {
     bookingResource.addMethod('GET', props.bookingLambdaIntegration, optionsWithAuth);
     bookingResource.addMethod('POST', props.bookingLambdaIntegration, optionsWithAuth);
 
+    const fetchFlightResource = api.root.addResource('flights')
+    fetchFlightResource.addMethod('GET', props.fetchFlightsLambdaIntegration, optionsWithAuth);
+    const fetchSeatsWithFlightIdResource = fetchFlightResource.addResource('{flightId}')
+    fetchSeatsWithFlightIdResource.addMethod('GET', props.fetchSeatsLambdaIntegration, optionsWithAuth);
+
 
 
     /* const optionsWithApiKey:MethodOptions = {
         apiKeyRequired: true
     };  */ 
     // export API_KEY=lux1zl2x1l && aws apigateway get-api-key --api-key ${API_KEY} --include-value --query 'value' --output text
-    const postsResource = api.root.addResource('posts');
+    /* const postsResource = api.root.addResource('posts');
     const postResource = postsResource.addResource('{id}');
     postsResource.addMethod('GET', props.postsLambdaIntegration);
     postsResource.addMethod('POST', props.postsLambdaIntegration);
     postResource.addMethod('GET', props.postLambdaIntegration);
     postResource.addMethod('DELETE', props.postLambdaIntegration);
-
+ */
     return {api, apiKey}
     
 }

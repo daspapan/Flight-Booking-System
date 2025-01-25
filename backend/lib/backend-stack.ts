@@ -78,6 +78,8 @@ export class BackendStack extends cdk.Stack {
             stageName: context.stage,
             userPool: auth.userPool,
             bookingLambdaIntegration: new LambdaIntegration(computeStack.bookSeats),
+            fetchFlightsLambdaIntegration: new LambdaIntegration(computeStack.fetchFlights),
+            fetchSeatsLambdaIntegration: new LambdaIntegration(computeStack.fetchSeats),
             postsLambdaIntegration: new LambdaIntegration(computeStack.postsLambda),
             postLambdaIntegration: new LambdaIntegration(computeStack.postLambda),
         })

@@ -72,6 +72,49 @@ export function createFunctions(scope: Construct, props: CreateFunctionsProps){
     }))
 
 
+    const fetchFlights = new NodejsFunction(scope, `${props.appName}-FetchFlights`, {
+        functionName: `${props.appName}-FetchFlights`,
+        runtime: Runtime.NODEJS_18_X,
+        handler: "handler",
+        entry: path.join(
+            __dirname,
+            './func/FetchFlights/index.ts'
+        ),
+        environment: {
+            FLIGHTS_TABLE_NAME: props.flightsTable.tableName,
+        }
+    })
+    fetchFlights.addToRolePolicy(new iam.PolicyStatement({
+        actions: [
+            'dynamodb:Scan',
+        ],
+        resources: [
+            props.flightsTable.tableArn as string,
+        ]
+    }))
+
+    const fetchSeats = new NodejsFunction(scope, `${props.appName}-FetchSeats`, {
+        functionName: `${props.appName}-FetchSeats`,
+        runtime: Runtime.NODEJS_18_X,
+        handler: "handler",
+        entry: path.join(
+            __dirname,
+            './func/FetchSeats/index.ts'
+        ),
+        environment: {
+            SEATS_TABLE_NAME: props.seatsTable.tableName,
+        }
+    })
+    fetchSeats.addToRolePolicy(new iam.PolicyStatement({
+        actions: [
+            'dynamodb:Query',
+        ],
+        resources: [
+            props.seatsTable.tableArn as string,
+        ]
+    }))
+
+
     const registerBooking = new NodejsFunction(scope, `${props.appName}-RegisterBooking`, {
         functionName: `${props.appName}-RegisterBooking`,
         runtime: Runtime.NODEJS_18_X,
@@ -183,6 +226,6 @@ export function createFunctions(scope: Construct, props: CreateFunctionsProps){
     })) 
 
 
-    return { addUserToTableFunc, registerBooking, bookSeats, syncFlights, sendEmail, postsLambda, postLambda}
+    return { addUserToTableFunc, registerBooking, bookSeats, fetchFlights, fetchSeats, syncFlights, sendEmail, postsLambda, postLambda}
 
 }

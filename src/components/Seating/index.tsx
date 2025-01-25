@@ -177,11 +177,13 @@ const SeatSelection = (props: SeatSelectionProps) => {
 
     React.useEffect(() => {
         const loadData = async () => {
+            const authToken: string | undefined = (await fetchAuthSession()).tokens?.idToken?.toString();
             console.log("Load seat data by flight id.")
             console.log("Flight ID: ", flightId);
             if (flightId) {
-                const fetchedSeats = await fetchSeats(flightId);
-                // console.log("Fetched Seats: ", fetchedSeats);
+
+                const fetchedSeats = await fetchSeats(flightId, authToken);
+                console.log("Fetched Seats 2: ", fetchedSeats);
                 const processedSeats = processSeatsData(fetchedSeats);
                 setSeats(processedSeats);
             }
@@ -194,11 +196,11 @@ const SeatSelection = (props: SeatSelectionProps) => {
         <ol className="flex flex-row flex-nowrap justify-start" key={rowNumber}>
             {seats[rowNumber].map((seat) => (
                 <li className="seat" key={seat.SeatID}>
-                <Seat
-                    seatNumber={seat.SeatID}
-                    isBooked={seat.IsBooked === "True"}
-                    onSeatClick={() => handleSeatClick(seat.SeatID)}
-                />
+                    <Seat
+                        seatNumber={seat.SeatID}
+                        isBooked={seat.IsBooked === "True"}
+                        onSeatClick={() => handleSeatClick(seat.SeatID)}
+                    />
                 </li>
             ))}
         </ol>
