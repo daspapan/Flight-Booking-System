@@ -56,7 +56,7 @@ export function FlightSelector(props: FlightSelectorProps) {
                                 key={flight.Origin + "-" + flight.Destination}
                                 value={flight.Origin + " to " + flight.Destination}
                                 onSelect={(currentValue) => {
-                                    console.log("Current Value Seleted: ", currentValue)
+                                    console.log("Current Value Seleted: ", currentValue) // FL456
                                     setValue(currentValue === value ? "" : currentValue);
                                     props.getFlightId(flight.FlightID);
                                     setOpen(false);
@@ -65,7 +65,7 @@ export function FlightSelector(props: FlightSelectorProps) {
                                 <Check
                                     className={cn(
                                         "mr-2 h-4 w-4",
-                                        value === flight.Origin + " [to] " + flight.Destination
+                                        value === flight.Origin + " to " + flight.Destination
                                             ? "opacity-100"
                                             : "opacity-0"
                                     )}

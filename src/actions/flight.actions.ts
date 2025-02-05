@@ -1,3 +1,5 @@
+"use server"
+
 // Usage: AWS_PROFILE=fbs npx ts-node ./script.ts
 // Make sure to have @aws-sdk/util-dynamodb and @aws-sdk/client-dynamodb modules installed!
 // You can use following command to do so: npm install @aws-sdk/client-dynamodb @aws-sdk/util-dynamodb --save
@@ -63,15 +65,16 @@ export const fetchSeats = async (flightId: string, authToken: string | undefined
     console.log("SeatBookingTableName", SeatBookingTableName);
 
     try {
-        
-        const seatsData = await fetch(`${process.env.NEXT_PUBLIC_API_URL}flights/${flightId}`, {
+        const url = `${process.env.NEXT_PUBLIC_API_URL}flights/${flightId}`;
+        console.log("URL: ", url);
+        const seatsData = await fetch(`https://bu8popi78j.execute-api.ap-south-1.amazonaws.com/dev/flights/${flightId}`, {
             method: "GET",
             headers: {
                 Authorization: `${authToken}`,
             },
         })
         const response = await seatsData.json();
-        console.log("Fetched Seats 1: ", response);
+        console.log("Fetched Seats 3: ", response);
         return response.data as SeatDataType[]
 
     } catch (error) {
@@ -116,5 +119,44 @@ export const fetchSeats = async (flightId: string, authToken: string | undefined
 
         throw error;
     } */
+};
+
+import axios from 'axios'
+import useSWR from 'swr'
+
+export const fetchSeatsClientSide = async (flightId: string, authToken: string | undefined): Promise<SeatDataType[]> => {
+
+    console.log("fetchSeats", flightId);
+    console.log("SeatBookingTableName", SeatBookingTableName);
+
+    try {
+        
+        const config = {
+            method: "GET",
+            headers: {
+                Authorization: `${authToken}`,
+            }
+        };
+        const url = `${process.env.NEXT_PUBLIC_API_URL}flights/${flightId}` as string
+        console.log("URL: ", url);
+        const fetcher = (url:string) => axios.get(url, config).then(res => res.data)
+        // const fetcher = (...args) => fetch(...args, config).then(res => res.json())
+        console.log("fetcher: ", fetcher)
+        const { data, error } = await useSWR(url, fetcher)
+        console.log("data: ", data)
+        console.log("error: ", error)
+
+        if(error){
+            console.error(error)
+        }
+        console.log("Fetched Seats 2: ", data);
+
+        return data as SeatDataType[]
+
+    } catch (error) {
+        console.error(`Failed to fetch data from API Endpoint. Error: ${JSON.stringify(error, null, 2)}`);
+        throw error;
+    }
+
 };
   

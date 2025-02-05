@@ -12,8 +12,12 @@ import { Button } from "@/components/ui/button";
 
 import { FlightSelector } from "@/components/Seating/flightSelector";
 import { handleSignOut } from "@/actions/auth.actions";
-import { fetchSeats } from "@/actions/flight.actions";
+import { fetchSeats, fetchSeatsClientSide } from "@/actions/flight.actions";
 import { APIURL } from "@/actions/booking.actions";
+import useSWR from "swr";
+import axios from "axios";
+
+
 type ProcessedSeats = {
     [key: string]: SeatType[];
 };
@@ -97,7 +101,7 @@ const SeatSelection = (props: SeatSelectionProps) => {
     // You can manage state and logic here
 
     const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
-    const [flightId, setFlightId] = React.useState("FL456");
+    const [flightId, setFlightId] = React.useState("");
     const [seats, setSeats] = useState<ProcessedSeats>({});
     const [isSubmiting, setIsSubmiting] = React.useState<boolean>(false);
 
@@ -175,21 +179,47 @@ const SeatSelection = (props: SeatSelectionProps) => {
         }
     };
 
+    interface SeatDataType {
+        SeatID: string;
+        IsBooked: string;
+        FlightID: string;
+    }
+
+    const getSeats = async (flightId: string, authToken: string | undefined): Promise<SeatDataType[]> => {
+
+        // const authToken = (await fetchAuthSession()).tokens?.idToken?.toString();
+        const seatsData = await fetch(`${process.env.NEXT_PUBLIC_API_URL}flights/FL456`, {
+            method: "GET",
+            headers: {
+                Authorization: `${authToken}`,
+            },
+        })
+        const responseS = await seatsData.json();
+        console.log("Fetched Seats 1: ", responseS.data);
+
+        return responseS.data as SeatDataType[]
+    }
+
+
+
     React.useEffect(() => {
         const loadData = async () => {
-            const authToken: string | undefined = (await fetchAuthSession()).tokens?.idToken?.toString();
             console.log("Load seat data by flight id.")
             console.log("Flight ID: ", flightId);
             if (flightId) {
 
+                const authToken: string | undefined = (await fetchAuthSession()).tokens?.idToken?.toString();
+                console.log("Auth Token: ", authToken);
                 const fetchedSeats = await fetchSeats(flightId, authToken);
-                console.log("Fetched Seats 2: ", fetchedSeats);
                 const processedSeats = processSeatsData(fetchedSeats);
                 setSeats(processedSeats);
+
+                
             }
         };
 
         loadData();
+
     }, [flightId]);
 
     const rows = Object.keys(seats).map((rowNumber) => (
